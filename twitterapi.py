@@ -51,7 +51,7 @@ class StdOutListener(StreamListener):
     def on_data(self, data):
         try:
             print(data)
-            with open(self.save_tweets_filename, "a") as tf:
+            with open(self.save_tweets_filename, "a", newline = '') as tf:
                 tf.write(data)
             return True
         except BaseException as e:
@@ -65,7 +65,7 @@ class StdOutListener(StreamListener):
 if __name__ == "__main__":
     
     # What do I track?
-    substring_check = ['student', 'delft', 'beer']
+    substring_check = ['pils', 'zuipen', 'beer', 'drinks']
     
     # Where do I save it to
     save_tweets_filename = "output/tweets.json"
