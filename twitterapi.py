@@ -2,11 +2,12 @@
 """
 Sjoerd Gnodde
 
-Tell here what it does
+Saves all the tweets to a JSON file. Has commented out section to save to 
 """
 
 # Import everything
-import pandas as pd
+import matplotlib.pyplot as plt
+#import pandas as pd
 import sys
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
@@ -15,6 +16,16 @@ sys.path.insert(0, '../passwords')
 
 import twitter_api_credentials as twit_cred
 
+from mpl_toolkits.basemap import Basemap
+import json
+
+
+# Live Plot 
+"""
+fig = plt.figure(figsize=(15, 15))
+m = Basemap(resolution=None, lat_0=0, lon_0=-0)
+m.bluemarble(scale=1);
+"""
 
 class TwitterStreamer():
     
@@ -50,10 +61,26 @@ class StdOutListener(StreamListener):
     
     def on_data(self, data):
         try:
-            print(data)
+            
+            # Live plot
+            """
+            json_data = json.loads(data)
+            print(json_data['text'])
+            all_coor = json_data['coordinates']
+            if all_coor:    
+                exact_coor = all_coor['coordinates']
+                m.scatter(exact_coor[0],exact_coor[1],3,marker='o',color='y')
+                print("||||||||||||||||||||||New location!")
+                plt.show()
+            """
+                
+            
+            # Write to file
             with open(self.save_tweets_filename, "a", newline = '') as tf:
                 tf.write(data)
+            
             return True
+        
         except BaseException as e:
             print("Error on_data: {e}".format(e=e))
         return True
@@ -74,7 +101,7 @@ if __name__ == "__main__":
     twitter_streamer = TwitterStreamer()
     twitter_streamer.stream_tweets(save_tweets_filename, substring_check)
     
-    
+
     
 """
 password_loc = "../passwords/twitter.csv"
