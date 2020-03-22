@@ -92,7 +92,7 @@ class StdOutListener(StreamListener):
 if __name__ == "__main__":
     
     # What do I track?
-    substring_check = ['pils', 'zuipen', 'beer', 'drinks']
+    substring_check = ['watermanagement', 'hydrology', 'flood', 'water management']
     
     # Where do I save it to
     save_tweets_filename = "output/tweets.json"
